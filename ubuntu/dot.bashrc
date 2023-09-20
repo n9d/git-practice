@@ -16,9 +16,9 @@ git config --global --add safe.directory /src
 rm -rf /src/practice
 mkdir /src/practice
 
-for script_file in ./template/mkrepo*.sh ;do
+for script_file in /src/template/mkrepo*.sh ;do
     echo 練習問題作成スクリプト $script_file を実行中
-    #${script_file} >/dev/null 2>&1
+    ${script_file} >/dev/null 2>&1
 done
 
 cd /src/practice

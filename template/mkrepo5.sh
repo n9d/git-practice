@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR=practice/$(echo $0 | sed -e 's/^.*mk//' -e 's/.sh//' )
+DIR=/src/practice/$(echo $0 | sed -e 's/^.*mk//' -e 's/.sh//' )
 [ -d $DIR ] && rm -rf $DIR
 CWD=$(pwd)
 mkdir $DIR
