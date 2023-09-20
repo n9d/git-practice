@@ -10,18 +10,22 @@ touch foo.txt
 git add foo.txt
 git commit -a -m "initial commit"
 
-git checkout -b branch1
+echo -e "A\nB\nC\nD" > foo.txt
+git commit -a -m "append ABCD"
 
-echo -e "A\nB\nC" > foo.txt
-git commit -a -m "append ABC"
+git checkout -b branch1
 
 sed -i s/A/1/ foo.txt
 git commit -a -m "A->1"
 
 sed -i s/B/2/ foo.txt
-git add foo.txt
+git commit -a -m "C->2"
 
-sed -i s/C/3/ foo.txt
+git checkout master
 
+sed -i s/D/4/ foo.txt
+git commit -a -m "D->4"
+
+git checkout branch1
 
 cd $CWD

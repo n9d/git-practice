@@ -31,6 +31,92 @@ docker-compose run --rm ubuntu bash
 cd /src/practice/repo1
 ```
 
+## 第1問
+
+### 想定
+
+- 最後のコミットのコメントを間違えた
+
+### 問題
+
+- 最後のコミットを`B->2`にせよ
+
+#### 前
+
+```sh
+$ git log --oneline
+a0bb8c3 (HEAD -> branch1) C->2
+2ed3553 A->1
+84425f3 append ABCD
+c5ea033 initial commit
+```
+
+#### 後
+
+```sh
+$ git log --oneline
+74dc31e (HEAD -> branch1) B->2
+2ed3553 A->1
+84425f3 append ABCD
+c5ea033 initial commit
+```
+
+### 解答
+
+- `--amend` すればいい
+
+```sh
+$ git commit --amend -m "B->2"
+```
+
+## 第問
+
+### 想定
+
+### 問題
+
+### 解答
+
+## 第問
+
+### 想定
+
+### 問題
+
+### 解答
+
+## 第問
+
+### 想定
+
+### 問題
+
+### 解答
+
+## 第問
+
+### 想定
+
+### 問題
+
+### 解答
+
+## 第問
+
+### 想定
+
+### 問題
+
+### 解答
+
+## 第問
+
+### 想定
+
+### 問題
+
+### 解答
+
 ## 第11問
 
 ### 想定
