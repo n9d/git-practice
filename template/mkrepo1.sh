@@ -15,43 +15,13 @@ git checkout -b branch1
 echo -e "A\nB\nC" > foo.txt
 git commit -a -m "append ABC"
 
-echo -e "D\nE\nF" >> foo.txt
-git commit -a -m "append DEF"
+sed -i s/A/1/ foo.txt
+git commit -a -m "A->1"
 
-echo -e "G\nH\nI" >> foo.txt
-git commit -a -m "append GHI"
+sed -i s/B/2/ foo.txt
+git add foo.txt
 
-git checkout -b branch2
-git checkout branch2
+sed -i s/C/3/ foo.txt
 
-sed -i s/E/J/ foo.txt
-git commit -a -m "E->J"
-
-sed -i s/C/K/ foo.txt
-git commit -a -m "C->K"
-
-sed -i s/H/L/ foo.txt
-git commit -a -m "H->L"
-
-sed -i s/L/M/ foo.txt
-git commit -a -m "L->M"
-
-git checkout -b branch3
-
-sed -i s/E/N/ foo.txt
-git commit -a -m "E->N"
-
-sed -i s/B/O/ foo.txt
-git commit -a -m "B->O"
-
-sed -i s/H/P/ foo.txt
-git commit -a -m "H->P"
-
-sleep 1
-
-git checkout master
-git merge branch1 --no-ff -m "merge branch1"
-
-git checkout branch3
 
 cd $CWD
