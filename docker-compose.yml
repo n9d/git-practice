@@ -1,0 +1,8 @@
+services:
+  # mysql-client/w3m 等が入ってるメンテ用のdocker
+  ubuntu:
+    build: ./ubuntu
+    tty: true
+    working_dir: /src
+    volumes:
+      - .:/src

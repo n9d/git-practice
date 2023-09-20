@@ -1,0 +1,8 @@
+[user]
+  name = foo
+  email = foo@users.noreply.github.com
+[color]
+  ui = auto
+[alias]
+  graph = log --graph --date-order -C -M  --all --date=format:'%Y/%m/%d %H:%M:%S' --pretty=format:'%h %C(green)%ad %C(cyan reverse)%cn%C(reset) %C(white bold)%s %C(red reverse)%w(80)%d'
+  ammend = commit --amend --date "`date`"
