@@ -1,8 +1,18 @@
 # gitの練習
 
+## はじめに
+
+gitで作業者として作業してるとプルリクエストは作業結果を提出する大事な場所という認識だと思う。
+しかし、一方で作業の履歴をバンバン取っていけるのもgitの醍醐味
+これらを両立させるためにはgitにある程度習熟する必要がある。
+特に、ブランチのマージや、複数コミットの単一化、作業ブランチの意味等を理解せずにgitを使うことは作業効率が落ちかえって害悪に近い。
+この練習環境は、以上を習熟するための一歩となることを願い作成した。
+
+また、これを見た誰でも、問題を作ってPRしてくれるのは大歓迎である。
+
 ## 環境
 
-- 起動 `docker-compose run ubuntu bash`
+- 起動 `docker-compose run --rm ubuntu bash`
 - 削除 `docker-compose down -v --remove-orphans`
 
 - `ubuntu`フォルダに `.bashrc` と `.gitconfig` を置いてあるので自分の環境に持ってくるときには参考になる
@@ -12,16 +22,16 @@
 
 ```sh
 docker-compose build
-docker-compose run ubuntu bash
+docker-compose run --rm ubuntu bash
 ```
 
-した後、下記で問題用のフォルダに移る
+した後、下記で問題用のフォルダ(repo)に移る
 
 ```sh
-cd practice/repo1
+cd /src/practice/repo1
 ```
 
-## 第１問
+## 第11問
 
 ### 想定
 
@@ -81,7 +91,7 @@ git checkout branch3
 git rebase branch2
 ```
 
-## 第２問
+## 第12問
 
 ### 想定
 
