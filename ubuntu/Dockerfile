@@ -9,7 +9,7 @@ RUN apt-get update
 #RUN apt-get upgrade
 RUN apt-get install -y language-pack-ja git
 # vimはワーニングがマニュアルあたりでうるさいのでブラックホール行き
-RUN apt-get -y -qq install vim 2&>1 >/dev/null
+RUN apt-get -y -qq install vim
 RUN locale-gen ja_JP.UTF-8
 ENV LANG "ja_JP.UTF-8"
 

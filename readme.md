@@ -69,6 +69,146 @@ c5ea033 initial commit
 $ git commit --amend -m "B->2"
 ```
 
+## 第2問
+
+### 想定
+
+- masterが先に進んでしまった、mergeでmasterを取り込もう
+
+### 問題
+
+- branch1にmasterをマージせよ
+
+#### 前
+
+```sh
+$ git log --oneline --all --graph
+* 64f9cbc (HEAD -> branch1) 1->10
+* 308097a B->2
+* 29ef762 A->1
+| * c321372 (master) D->4
+|/
+* cbfc076 append ABCD
+* 1dfba07 initial commit
+```
+
+#### 後
+
+```sh
+$ git log --oneline --all --graph
+*   dbeb5cb (HEAD -> branch1) masterをマージ
+|\
+| * 7af1169 (master) D->4
+* | 57a2e3c 1->10
+* | 5b55f4d B->2
+* | 03cc10d A->1
+|/
+* 6c9139c append ABCD
+* abe14c2 initial commit
+```
+
+
+### 解答
+
+```sh
+$ git merge master -m "masterをマージ"
+```
+
+- マージではmasterで枝が分岐しているので見にくい（ちょっとかっこ悪い）
+- コンフリクト起こしてたりすると運用が結構大変
+
+## 第3問
+
+### 想定
+
+- 提出するときにはコンフリクトをなるべく避けるために最新masterより後にコミットを集めたい
+
+### 問題
+
+#### 前
+
+```sh
+$ git log --oneline --all --graph --date-order
+* cae5446 (HEAD -> branch1) 1->10
+| * ad43843 (master) D->4
+* | 3eae60e B->2
+* | d0be2fd A->1
+|/
+* 52003c2 append ABCD
+* 133d817 initial commit
+```
+
+#### 後
+
+```sh
+$ git log --oneline --all --graph --date-order
+* cb2db88 (HEAD -> branch1) 1->10
+* fd94194 B->2
+* 167fc99 A->1
+* ad43843 (master) D->4
+* 52003c2 append ABCD
+* 133d817 initial commit
+```
+
+### 解答
+
+```sh
+$ git rebase master
+```
+
+- rebaseすると一直線で気持ち良い
+- でも提出する（＝プルリクエスト作成）ときにコミット細切れでかっこ悪い
+
+## 第4問
+
+### 想定
+
+- コミットがバラバラの作業のバックアップをしたい
+- rebaseするブランチがコンフリクトの解消等でぐちゃぐちゃになってしまい捨てる等担ったときのためにバックアップのブランチ(branch2)を作りたい
+- master後のコミットを一つにまとめたい
+
+### 問題
+
+#### 前
+
+```sh
+$ git log --oneline --all --graph --date-order
+* 3759c20 (HEAD -> branch1) 1->10
+| * 7d7edb8 (master) D->4
+* | 7287808 B->2
+* | 0c010df A->1
+|/
+* 56cfe5a append ABCD
+* fca0fb9 initial commit
+```
+
+#### 後
+
+```sh
+$ git log --oneline --all --graph --date-order
+* 8b22b6f (HEAD -> branch1) 一つのコミット
+| * 3759c20 (branch2) 1->10
+* | 7d7edb8 (master) D->4
+| * 7287808 B->2
+| * 0c010df A->1
+|/
+* 56cfe5a append ABCD
+* fca0fb9 initial commit
+```
+
+### 解答
+```sh
+$ git checkout -b branch2
+$ git checkout branch1
+$ git rebase -i master
+
+pick 0c010df A->1
+s 7287808 B->2
+s 3759c20 1->10
+
+```
+
+
 ## 第問
 
 ### 想定
@@ -77,45 +217,8 @@ $ git commit --amend -m "B->2"
 
 ### 解答
 
-## 第問
 
-### 想定
-
-### 問題
-
-### 解答
-
-## 第問
-
-### 想定
-
-### 問題
-
-### 解答
-
-## 第問
-
-### 想定
-
-### 問題
-
-### 解答
-
-## 第問
-
-### 想定
-
-### 問題
-
-### 解答
-
-## 第問
-
-### 想定
-
-### 問題
-
-### 解答
+- ここからちょっと難しい
 
 ## 第11問
 
