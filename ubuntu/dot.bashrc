@@ -13,8 +13,8 @@ GIT_PS1_SHOWUPSTREAM=auto
 PS1='[\[\033[32m\]\u@docker\[\033[00m\] \[\033[33m\]\w\[\033[1;36m\]$(__git_ps1 " (%s)")\[\033[00m\]]\n$ '
 git config --global --add safe.directory /src
 
-rm -rf /src/practice
-mkdir /src/practice
+rm -rf /src/practice/*
+#mkdir /src/practice
 
 for script_file in /src/template/mkrepo*.sh ;do
     echo 練習問題作成スクリプト $script_file を実行中

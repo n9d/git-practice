@@ -6,3 +6,6 @@ services:
     working_dir: /src
     volumes:
       - .:/src
+      - practice:/src/practice
+volumes:
+  practice:

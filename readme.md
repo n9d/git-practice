@@ -25,11 +25,20 @@ docker-compose build
 docker-compose run --rm ubuntu bash
 ```
 
-した後、下記で問題用のフォルダ(repo)に移る
+した後、下記で問題用のフォルダ(repo1〜)に移る
 
 ```sh
 cd /src/practice/repo1
 ```
+
+## 終了時
+
+volumeごと削除
+
+```sh
+docker-compose down -v --remove-orphans
+```
+
 
 ## 第1問
 
@@ -197,10 +206,63 @@ $ git log --oneline --all --graph --date-order
 ```
 
 ### 解答
+
 ```sh
 $ git checkout -b branch2
 $ git checkout branch1
-$ git rebase -i master
+$ git rebase master
+$ git reset master
+$ git add .
+$ git commit -m "一つのコミット"
+```
+
+- rebase後に masterの位置でソフトリセットかけることで、
+- 最新のソースが手元にあり、masterとの差分をコミットすれば要件は満たされる。
+- そのへんの`git reset`の説明にはろくなものがなく、コミットメッセージを破棄してまとめるときはこれが一番手頃。
+
+
+## 第5問
+
+### 想定
+
+- コミットがバラバラの作業のバックアップをしたい
+- rebaseするブランチがコンフリクトの解消等でぐちゃぐちゃになってしまい捨てる等担ったときのためにバックアップのブランチ(branch2)を作りたい
+- master後のコミットを一つにまとめたい
+
+### 問題
+
+#### 前
+
+```sh
+$ git log --oneline --all --graph --date-order
+* 3759c20 (HEAD -> branch1) 1->10
+| * 7d7edb8 (master) D->4
+* | 7287808 B->2
+* | 0c010df A->1
+|/
+* 56cfe5a append ABCD
+* fca0fb9 initial commit
+```
+
+#### 後
+
+```sh
+$ git log --oneline --all --graph --date-order
+* 8b22b6f (HEAD -> branch1) 一つのコミット
+| * 3759c20 (branch2) 1->10
+* | 7d7edb8 (master) D->4
+| * 7287808 B->2
+| * 0c010df A->1
+|/
+* 56cfe5a append ABCD
+* fca0fb9 initial commit
+```
+
+### 解答
+```sh
+$ git checkout -b branch2
+$ git checkout branch1
+$ git rebase master
 
 pick 0c010df A->1
 s 7287808 B->2
