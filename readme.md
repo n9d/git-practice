@@ -6,9 +6,17 @@ gitで作業者として作業してるとプルリクエストは作業結果�
 しかし、一方で作業の履歴をバンバン取っていけるのもgitの醍醐味
 これらを両立させるためにはgitにある程度習熟する必要がある。
 特に、ブランチのマージや、複数コミットの単一化、作業ブランチの意味等を理解せずにgitを使うことは作業効率が落ちかえって害悪に近い。
+`git stash` でバックアップを取りながらの作業はその後の`stash pop`等で苦労した人も多いことだと思う。
+せめて、第４問までやることで `git stash` が不要になる。
+
 この練習環境は、以上を習熟するための一歩となることを願い作成した。
 
 また、これを見た誰でも、問題を作ってPRしてくれるのは大歓迎である。
+
+## 必要技能
+
+- コマンド入力
+- viの操作(４問以降の`rebase -i`時等に必要）
 
 ## 環境
 
@@ -218,16 +226,16 @@ $ git commit -m "一つのコミット"
 
 - rebase後に masterの位置でソフトリセットかけることで、
 - 最新のソースが手元にあり、masterとの差分をコミットすれば要件は満たされる。
-- そのへんの`git reset`の説明にはろくなものがなく、コミットメッセージを破棄してまとめるときはこれが一番手頃。
+- そのへんの`git reset`の説明にはろくなものがなく、**コミットメッセージを破棄してまとめる**ときはこれが一番手頃。
+- バックアップであるbranch2が不要なら `git branch -D branch2` で破棄する
 
 
 ## 第5問
 
 ### 想定
 
-- コミットがバラバラの作業のバックアップをしたい
-- rebaseするブランチがコンフリクトの解消等でぐちゃぐちゃになってしまい捨てる等担ったときのためにバックアップのブランチ(branch2)を作りたい
-- master後のコミットを一つにまとめたい
+- masterが修正されてしまい先に進んでしまった。
+- master修正前のコミット、修正後のコミットをそれぞれまとめてmaster後のコミットとしたい
 
 ### 問題
 
@@ -235,39 +243,36 @@ $ git commit -m "一つのコミット"
 
 ```sh
 $ git log --oneline --all --graph --date-order
-* 3759c20 (HEAD -> branch1) 1->10
-| * 7d7edb8 (master) D->4
-* | 7287808 B->2
-* | 0c010df A->1
+* 974af62 (HEAD -> branch1) 1->10
+| * d2dace8 (master) D->4
+* | 5a14454 B->2
+* | 761157e A->1
 |/
-* 56cfe5a append ABCD
-* fca0fb9 initial commit
+* 7db73c5 append ABCD
+* 147ec81 initial commit
 ```
 
 #### 後
 
 ```sh
 $ git log --oneline --all --graph --date-order
-* 8b22b6f (HEAD -> branch1) 一つのコミット
-| * 3759c20 (branch2) 1->10
-* | 7d7edb8 (master) D->4
-| * 7287808 B->2
-| * 0c010df A->1
-|/
-* 56cfe5a append ABCD
-* fca0fb9 initial commit
+* 7904e8a (HEAD -> branch1) 1->10
+* f8ba049 コミット前
+* d2dace8 (master) D->4
+* 7db73c5 append ABCD
+* 147ec81 initial commit
 ```
+
+- `git rebase -i` で任意のコミットを任意の箇所でまとめることができる。
+- 単一にするなら `git rebase` + `git reset` + `git add .` + `git commit -m` の方が楽（エディタが立ち上がらない）
 
 ### 解答
 ```sh
-$ git checkout -b branch2
-$ git checkout branch1
-$ git rebase master
+$ git rebase -i master
 
-pick 0c010df A->1
-s 7287808 B->2
-s 3759c20 1->10
-
+pick 761157e A->1
+s 5a14454 B->2
+pick 974af62 1->10
 ```
 
 
@@ -410,3 +415,9 @@ pick 6099eb5 L->M
 ```
 
 3,4,5は昔に作って問題忘れた。
+
+## 残作業
+
+- コンフリクトを解消する例
+- vscodeでどうする作業するか
+
