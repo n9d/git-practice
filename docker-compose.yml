@@ -1,11 +1,13 @@
 services:
-  # mysql-client/w3m 等が入ってるメンテ用のdocker
   ubuntu:
-    build: ./ubuntu
+    build: ./
     tty: true
     working_dir: /src
     volumes:
       - .:/src
       - practice:/src/practice
+    command: >
+      sh -c "/src/mkproblem.sh &&
+            tail -f /dev/null"
 volumes:
   practice:

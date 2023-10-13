@@ -30,14 +30,17 @@ gitで作業者として作業してるとプルリクエストは作業結果�
 
 ```sh
 docker-compose build
-docker-compose run --rm ubuntu bash
+docker-compose run --rm ubuntu zsh
 ```
+`./mkproblem.sh` で問題を作成（何度も実行でき、問題をリセットする）
+
 
 した後、下記で問題用のフォルダ(repo1〜)に移る
 
 ```sh
 cd /src/practice/repo1
 ```
+
 
 ## 終了時
 
@@ -109,6 +112,19 @@ $ git log --oneline --all --graph
 * 1dfba07 initial commit
 ```
 
+```mermaid
+gitGraph
+    commit id:"1dfba07"
+    commit id:"cbfc076"
+    branch branch1
+    checkout branch1
+    commit id:"29ef762"
+    commit id:"308097a"
+    commit id:"64f9cbc"
+    checkout main
+    commit id:"c321372"
+```
+
 #### 後
 
 ```sh
@@ -124,6 +140,21 @@ $ git log --oneline --all --graph
 * abe14c2 initial commit
 ```
 
+```mermaid
+gitGraph
+    commit id:"abe14c2"
+    commit id:"6c9139c"
+    branch branch1
+    checkout branch1
+    commit id:"03cc10d"
+    commit id:"5b55f4d"
+    commit id:"57a2e3c"
+    checkout main
+    commit id:"7af1169"
+    checkout branch1
+    merge main
+```
+```
 
 ### 解答
 
@@ -420,4 +451,3 @@ pick 6099eb5 L->M
 
 - コンフリクトを解消する例
 - vscodeでどうする作業するか
-
